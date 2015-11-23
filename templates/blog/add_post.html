@@ -1,12 +1,17 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
 {% extends '_base.html' %}
- 
+
 {% block content %}
+{% load bootstrap_tags %}
 <h2>Add a Post</h2>
 <form id="post_form" method="post" action="/blog/add_post/" enctype="multipart/form-data">
   {% csrf_token %}
 
-  {{ form }}
+  {{ form | as_bootstrap}}
 
-  <input type="submit" name="submit" value="Create Post">
-</form>
+  <input type="submit" name="submit" value="Create Post" class="btn btn-primary">
+ </form>
+ <br>
 {% endblock %}
