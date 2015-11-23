@@ -51,7 +51,7 @@ def add_post(request):
             form.save(commit=True)  # yes? save to database
             return redirect(index)
         else:
-            print(form.errors)  # no? display errors to end user
+            print(form.errors) # no? display errors to end user
     else:
         form = PostForm()
     return render_to_response('blog/add_post.html', {'form': form}, context)
