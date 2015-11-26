@@ -17,7 +17,7 @@ def soon():
 
 
 def sign_in(request):
-    user = Foo
+    user = None
     if request.method == 'POST':
         form = SigninForm(request.POST)
         if form.is_valid():
@@ -47,11 +47,11 @@ def sign_in(request):
 
 def sign_out(request):
     del request.session['user']
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/'),user
 
 
 def register(request):
-    user = Foo
+    user = None
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -87,7 +87,7 @@ def register(request):
                 form.addError(user.email + ' is already a member')
             else:
                 request.session['user'] = user.pk
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/'), user
 
     else:
         form = UserForm()
