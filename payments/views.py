@@ -17,7 +17,7 @@ def soon():
 
 
 def sign_in(request):
-    user = None
+    #user = None
     if request.method == 'POST':
         form = SigninForm(request.POST)
         if form.is_valid():
@@ -51,7 +51,7 @@ def sign_out(request):
 
 
 def register(request):
-    user = None
+    #user = None
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
