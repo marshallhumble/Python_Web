@@ -56,13 +56,13 @@ def register(request):
         form = UserForm(request.POST)
         if form.is_valid():
 
-            #update based on your billing method (subscription vs one time)
-            # customer = stripe.Customer.create(
-            #     email=form.cleaned_data['email'],
-            #     description=form.cleaned_data['name'],
-            #     card=form.cleaned_data['stripe_token'],
-            #     plan="gold",
-            # )
+            update based on your billing method (subscription vs one time)
+             customer = stripe.Customer.create(
+                 email=form.cleaned_data['email'],
+                 description=form.cleaned_data['name'],
+                 card=form.cleaned_data['stripe_token'],
+                 plan="gold",
+             )
 
             customer = stripe.Charge.create(
                 description=form.cleaned_data['email'],
