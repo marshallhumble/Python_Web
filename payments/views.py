@@ -71,7 +71,7 @@ def register(request):
                     'number': '4242424242424242',
                     'exp_month': 10,
                     'exp_year': 2016
-                    }
+                    },
                 amount="50",
                 currency="usd"
             )
