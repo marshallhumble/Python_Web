@@ -98,6 +98,7 @@ def register(request):
         form = UserForm()
 
     return render_to_response(
+        'register.html',
         {
             'form': form,
             'months': range(1, 12),
@@ -105,8 +106,8 @@ def register(request):
             'soon': soon(),
             'user': user,
             'years': range(2015, 2036),
-        } # ,
-        # 'register.html'context_instance=RequestContext(request)
+        },
+        context_instance=RequestContext(request)
     )
 
 
