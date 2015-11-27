@@ -105,8 +105,8 @@ def register(request):
             'soon': soon(),
             'user': user,
             'years': range(2015, 2036),
-        },
-        'register.html'context_instance=RequestContext(request)
+        } # ,
+        # 'register.html'context_instance=RequestContext(request)
     )
 
 
