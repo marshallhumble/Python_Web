@@ -56,7 +56,7 @@ def register(request):
         form = UserForm(request.POST)
         if form.is_valid():
 
-            update based on your billing method (subscription vs one time)
+           #  update based on your billing method (subscription vs one time)
              customer = stripe.Customer.create(
                  email=form.cleaned_data['email'],
                  description=form.cleaned_data['name'],
