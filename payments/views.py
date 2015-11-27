@@ -61,7 +61,7 @@ def register(request):
             customer = stripe.Customer.create(
                  email=form.cleaned_data['email'],
                  description=form.cleaned_data['name'],
-                 card=4242424242424242
+                 card=4242424242424242,
                  #card=form.cleaned_data['stripe_token'],
                  plan="gold",
              )
