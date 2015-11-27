@@ -65,23 +65,16 @@ def register(request):
             #     plan="gold",
             # )
 
-            #customer = stripe.Charge.create(
-            #    description=form.cleaned_data['email'],
-            #    card=form.cleaned_data['stripe_token'],
-            #    amount="50",
-            #    currency="usd"
-            #)
-
-            resp = stripe.Charge.create(
-                amount=200,
-                currency='usd',
+            customer = stripe.Charge.create(
+                description=form.cleaned_data['email'],
                 card={
                     'number': '4242424242424242',
                     'exp_month': 10,
                     'exp_year': 2016
-                    },
-                description='customer@gmail.com'
-)
+                    }
+                amount="50",
+                currency="usd"
+            )
 
             user = User(
                 name=form.cleaned_data['name'],
