@@ -46,8 +46,9 @@ def sign_in(request):
 
 
 def sign_out(request):
+    user = form.cleaned_data['email']
     del request.session['user']
-    return HttpResponseRedirect('/'),user
+    return HttpResponseRedirect('/'), user
 
 
 def register(request):
