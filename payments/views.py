@@ -58,13 +58,12 @@ def register(request):
 
             # update based on your billing method (subscription vs one time)
 
-            customer = stripe.Customer.create(
-                 email=form.cleaned_data['email'],
-                 description=form.cleaned_data['name'],
-                 card=4242424242424242,
-                 #card=form.cleaned_data['stripe_token'],
-                 plan="gold",
-             )
+            #customer = stripe.Customer.create(
+            #     email=form.cleaned_data['email'],
+            #     description=form.cleaned_data['name'],
+            #     card=form.cleaned_data['stripe_token'],
+            #     plan="gold",
+            # )
 
             #customer = stripe.Charge.create(
             #    description=form.cleaned_data['email'],
@@ -72,6 +71,17 @@ def register(request):
             #    amount="50",
             #    currency="usd"
             #)
+
+            resp = stripe.Charge.create(
+                amount=200,
+                currency='usd',
+                card={
+                    'number': '4242424242424242',
+                    'exp_month': 10,
+                    'exp_year': 2016
+                    },
+                description='customer@gmail.com'
+)
 
             user = User(
                 name=form.cleaned_data['name'],
@@ -102,7 +112,7 @@ def register(request):
             'publishable': settings.STRIPE_PUBLISHABLE,
             'soon': soon(),
             'user': user,
-            'years': range(2011, 2036),
+            'years': range(2015, 2036),
         },
         context_instance=RequestContext(request)
     )
@@ -140,7 +150,7 @@ def edit(request):
             'publishable': settings.STRIPE_PUBLISHABLE,
             'soon': soon(),
             'months': range(1, 12),
-            'years': range(2011, 2036)
+            'years': range(2015, 2036)
         },
         context_instance=RequestContext(request)
     )
