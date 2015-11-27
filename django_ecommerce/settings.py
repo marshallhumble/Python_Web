@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for django_ecommerce project.
 
@@ -10,11 +12,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 # Stripe Keys
-STRIPE_SECRET = 'sk_test_D5sr6ZTBiBY7oVmkOZNvyXha'
-STRIPE_PUBLISHABLE = 'pk_test_jesmeGfSEU7gE8L2OkXHoQyD'
+STRIPE_SECRET = 'sk_test_otKJIoVifEG7wYVckK9rgIeO'
+STRIPE_PUBLISHABLE = 'pk_test_cB9kIUhmK2NWGEtLL4rvBDiT'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
 
 DIRNAME = os.path.abspath(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +23,7 @@ PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 SITE_ROOT = os.path.dirname(PROJECT_ROOT)
 STATICFILES_DIRS = (os.path.join(SITE_ROOT, 'static'),)
 
-#TEMPLATE_DIRS = (os.path.join(SITE_ROOT, 'templates'),)
+# TEMPLATE_DIRS = (os.path.join(SITE_ROOT, 'templates'),)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '1nz(u@zyy=kf7ptf7c2$-+%4%&$tlnyx$f$0iw672z=^5(n7dj'
@@ -44,7 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #Local Apps
+    # Local Apps
 
     'main',
     'django.contrib.sites',
