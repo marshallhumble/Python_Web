@@ -26,9 +26,16 @@ def get_cake_day(username):
     return humanize.naturalday(created_on)
 
 
-def get_user_karma(username):
-    user = r.get_redditor(username)
-    return user.comment_karma
+def get_user_karma(username, limit=50, thing_type="submissions"):
+    karma_by_subreddit = {}
+    user = reddit_client.get_redditor(username)
+    gen = (user.get_comments(limit=limit) if thing_type == "comments" else
+           user.get_submitted(limit=limit))
+    for thing in gen:
+        subreddit = thing.subreddit.display_name
+        karma_by_subreddit[subreddit] = (karma_by_subreddit.get(subreddit, 0)
+                                         + thing.ups - thing.downs)
+    return karma_by_subreddit
 
 
 @app.route('/')
@@ -38,10 +45,10 @@ def index():
     if not username:
         return render_template('index.html')
     cakeday = get_cake_day(username)
-    comment_karma = get_user_karma('username')
+    comment_karma = get_user_karma(username)
     if cakeday:
         return render_template('result.html', username=username,
-                               cakeday=cakeday, comment_karma=comment_karma)
+                               cakeday=cakeday, karma=comment_karma)
     return render_template('index.html', error_message=error_message)
 
 if __name__ == '__main__':
