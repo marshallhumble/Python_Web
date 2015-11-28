@@ -5,14 +5,8 @@ from flask import Flask
 from flask import request, render_template
 from prawoauth2 import PrawOAuth2Mini
 
-#from token import (app_key, app_secret, access_token, refresh_token, user_agent, scopes)
+from token import (app_key, app_secret, access_token, refresh_token, user_agent, scopes)
 
-user_agent = 'user info by u/ummmbacon'
-scopes = ['identity', 'submit', 'read']
-app_key = 'wuZDn-3r_HFBYQ'
-app_secret = '7JQ_1pF0zn997KEDLMzR7niOJZc'
-refresh_token = '12068463-VHurYywHQ3d6yQHlDDUY6iwIuHQ'
-access_token = '12068463-PIHY08Sf_W8u5SlmhR1UduX92Zc'
 
 reddit_client = praw.Reddit(user_agent=user_agent)
 oauth_helper = PrawOAuth2Mini(reddit_client, app_key=app_key,
