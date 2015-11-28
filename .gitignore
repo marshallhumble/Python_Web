@@ -1,7 +1,8 @@
 #PyCham Files
 .idea/
 
-token.py
+#Settings File with Keys
+settings.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
