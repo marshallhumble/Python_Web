@@ -25,14 +25,10 @@ def get_cake_day(username):
         return False
     return humanize.naturalday(created_on)
 
+
 def get_user_karma(username):
-    lkarma = 0
-    ckarma = 0
     user = r.get_redditor(username)
-    try:
-        # lkarma = user.link_karma
-        ckarma = user.comment_karma
-    return ckarma
+    return user.comment_karma
 
 
 @app.route('/')
@@ -42,10 +38,10 @@ def index():
     if not username:
         return render_template('index.html')
     cakeday = get_cake_day(username)
-    link_karma, comment_karma = get_user_karma('username')
+    comment_karma = get_user_karma('username')
     if cakeday:
         return render_template('result.html', username=username,
-                               cakeday=cakeday, link_karma=link_karma, comment_karma=comment_karma)
+                               cakeday=cakeday, comment_karma=comment_karma)
     return render_template('index.html', error_message=error_message)
 
 if __name__ == '__main__':
