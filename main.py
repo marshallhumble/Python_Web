@@ -5,7 +5,7 @@ from flask import Flask
 from flask import request, render_template
 from prawoauth2 import PrawOAuth2Mini
 
-from token import (app_key, app_secret, access_token, refresh_token, user_agent, scopes)
+from settings import (app_key, app_secret, access_token, refresh_token, user_agent, scopes)
 
 
 reddit_client = praw.Reddit(user_agent=user_agent)
@@ -25,6 +25,15 @@ def get_cake_day(username):
         return False
     return humanize.naturalday(created_on)
 
+def get_user_karma(username):
+    lkarma = 0
+    ckarma = 0
+    user = r.get_redditor(username)
+    try:
+        lkarma = user.link_karma
+        ckarma = user.comment_karma
+    return lkarma, ckarma
+
 
 @app.route('/')
 def index():
@@ -33,9 +42,10 @@ def index():
     if not username:
         return render_template('index.html')
     cakeday = get_cake_day(username)
+    link_karma, comment_karma = get_user_karma('username')
     if cakeday:
         return render_template('result.html', username=username,
-                               cakeday=cakeday)
+                               cakeday=cakeday, link_karma=link_karma, comment_karma=comment_karma)
     return render_template('index.html', error_message=error_message)
 
 if __name__ == '__main__':
