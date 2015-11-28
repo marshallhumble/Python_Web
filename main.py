@@ -30,9 +30,9 @@ def get_user_karma(username):
     ckarma = 0
     user = r.get_redditor(username)
     try:
-        lkarma = user.link_karma
+        # lkarma = user.link_karma
         ckarma = user.comment_karma
-    return lkarma, ckarma
+    return ckarma
 
 
 @app.route('/')
