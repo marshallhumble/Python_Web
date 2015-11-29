@@ -1,2 +1,3 @@
 # flask_praw
-Little Flask App to Fetch User Info From Reddit
+
+Flask App to Fetch User Cake Day (date reddit account was created) and comment and link karma. 
