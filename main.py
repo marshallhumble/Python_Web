@@ -23,8 +23,7 @@ def get_cake_day(username):
         created_on = datetime.utcfromtimestamp(redditor.created_utc)
     except praw.errors.NotFound:
         return False
-    return dict(cake_date=humanize.naturalday(created_on), comment_karma=redditor.comment_karma,
-                link_karma=redditor.link_karma)
+    return humanize.naturalday(created_on), redditor.comment_karma, redditor.link_karma
 
 
 
@@ -34,10 +33,10 @@ def index():
     username = request.values.get('username')
     if not username:
         return render_template('index.html')
-    cakeday = get_cake_day(username)
+    cakeday, comment_karma, link_karma  = get_cake_day(username)
     if cakeday:
-        return render_template('result.html', username=result['username'],
-                               cakeday=cakeday, comment_karm=result['comment_karma'], link_karma=result['link_karma'])
+        return render_template('result.html', username=username,
+                               cakeday=cakeday, comment_karm=comment_karma, link_karma=link_karma)
     return render_template('index.html', error_message=error_message)
 
 if __name__ == '__main__':
