@@ -36,8 +36,8 @@ def index():
         return render_template('index.html')
     cakeday = get_cake_day(username)
     if cakeday:
-        return render_template('result.html', username=username,
-                               cakeday=cakeday, comment_karm=comment_karma, link_karma=link_karma)
+        return render_template('result.html', username=result['username'],
+                               cakeday=cakeday, comment_karm=result['comment_karma'], link_karma=result['link_karma'])
     return render_template('index.html', error_message=error_message)
 
 if __name__ == '__main__':
