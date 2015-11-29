@@ -33,10 +33,10 @@ def index():
     username = request.values.get('username')
     if not username:
         return render_template('index.html')
-    cakeday, comment_karma, link_karma  = get_cake_day(username)
+    cakeday, comment_karma, link_karma = get_cake_day(username)
     if cakeday:
         return render_template('result.html', username=username,
-                               cakeday=cakeday, comment_karm=comment_karma, link_karma=link_karma)
+                               cakeday=cakeday, comment_karma=comment_karma, link_karma=link_karma)
     return render_template('index.html', error_message=error_message)
 
 if __name__ == '__main__':
