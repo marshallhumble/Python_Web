@@ -14,7 +14,7 @@ from micawber.cache import Cache as OEmbedCache
 from peewee import *
 from playhouse.flask_utils import FlaskDB, get_object_or_404, object_list
 from playhouse.sqlite_ext import *
-from settings import adminpass, secret
+from config import adminpass, secret
 
 
 ADMIN_PASSWORD = adminpass
