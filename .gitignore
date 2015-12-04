@@ -4,6 +4,7 @@
 
 #Ignore the config file with secrets in it
 config.py
+settings.py
 
 #Ignore the db
 *.db
