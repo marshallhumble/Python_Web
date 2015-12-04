@@ -120,12 +120,14 @@ class Entry(flask_db.Model):
                     (FTSEntry.match(search)))
                 .order_by(SQL('score').desc()))
 
+
 class FTSEntry(FTSModel):
     entry_id = IntegerField(Entry)
     content = TextField()
 
     class Meta:
         database = database
+
 
 def login_required(fn):
     @functools.wraps(fn)
@@ -134,6 +136,7 @@ def login_required(fn):
             return fn(*args, **kwargs)
         return redirect(url_for('login', next=request.path))
     return inner
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -149,12 +152,14 @@ def login():
             flash('Incorrect password.', 'danger')
     return render_template('login.html', next_url=next_url)
 
+
 @app.route('/logout/', methods=['GET', 'POST'])
 def logout():
     if request.method == 'POST':
         session.clear()
         return redirect(url_for('login'))
     return render_template('logout.html')
+
 
 @app.route('/')
 def index():
@@ -169,6 +174,7 @@ def index():
         query,
         search=search_query,
         check_bounds=False)
+
 
 @app.route('/create/', methods=['GET', 'POST'])
 @login_required
@@ -188,11 +194,13 @@ def create():
             flash('Title and Content are required.', 'danger')
     return render_template('create.html')
 
+
 @app.route('/drafts/')
 @login_required
 def drafts():
     query = Entry.drafts().order_by(Entry.timestamp.desc())
     return object_list('index.html', query, check_bounds=False)
+
 
 @app.route('/<slug>/')
 def detail(slug):
@@ -202,6 +210,7 @@ def detail(slug):
         query = Entry.public()
     entry = get_object_or_404(query, Entry.slug == slug)
     return render_template('detail.html', entry=entry)
+
 
 @app.route('/<slug>/edit/', methods=['GET', 'POST'])
 @login_required
@@ -224,6 +233,7 @@ def edit(slug):
 
     return render_template('edit.html', entry=entry)
 
+
 @app.template_filter('clean_querystring')
 def clean_querystring(request_args, *keys_to_remove, **new_values):
     # We'll use this template filter in the pagination include. This filter
@@ -237,9 +247,11 @@ def clean_querystring(request_args, *keys_to_remove, **new_values):
     querystring.update(new_values)
     return urllib.urlencode(querystring)
 
+
 @app.errorhandler(404)
 def not_found(exc):
     return Response('<h3>Not found</h3>'), 404
+
 
 def main():
     database.create_tables([Entry, FTSEntry], safe=True)
