@@ -1,0 +1,2 @@
+adminpass = 'adminpass'
+secret = 'foobar'
