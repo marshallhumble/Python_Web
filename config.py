@@ -1,2 +1,0 @@
-adminpass = 'adminpass'
-secret = 'foobar'
