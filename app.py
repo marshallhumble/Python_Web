@@ -16,42 +16,31 @@ from playhouse.flask_utils import FlaskDB, get_object_or_404, object_list
 from playhouse.sqlite_ext import *
 from settings import adminpass, secret
 
-# Blog configuration values.
 
-# You may consider using a one-way hash to generate the password, and then
-# use the hash again in the login view to perform the comparison. This is just
-# for simplicity.
 ADMIN_PASSWORD = adminpass
 APP_DIR = os.path.dirname(os.path.realpath(__file__))
 
-# The playhouse.flask_utils.FlaskDB object accepts database URL configuration.
+
 DATABASE = 'sqliteext:///%s' % os.path.join(APP_DIR, 'blog.db')
 DEBUG = False
 
-# The secret key is used internally by Flask to encrypt session data stored
-# in cookies. Make this unique for your app.
 SECRET_KEY = secret
 
-# This is used by micawber, which will attempt to generate rich media
+# This is used by micawber
 # embedded objects with maxwidth=800.
 SITE_WIDTH = 800
 
 
-# Create a Flask WSGI app and configure it using values from the module.
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-# FlaskDB is a wrapper for a peewee database that sets up pre/post-request
-# hooks for managing database connections.
+# FlaskDB is a wrapper for a peewee database
 flask_db = FlaskDB(app)
 
-# The `database` is the actual peewee database, as opposed to flask_db which is
-# the wrapper.
+# PeeWee Database
 database = flask_db.database
 
-# Configure micawber with the default OEmbed providers (YouTube, Flickr, etc).
-# We'll use a simple in-memory cache so that multiple requests for the same
-# video don't require multiple network requests.
+# This is used by micawber
 oembed_providers = bootstrap_basic(OEmbedCache())
 
 
@@ -90,9 +79,6 @@ class Entry(flask_db.Model):
         return ret
 
     def update_search_index(self):
-        # Create a row in the FTSEntry table with the post content. This will
-        # allow us to use SQLite's awesome full-text search extension to
-        # search our entries.
         try:
             fts_entry = FTSEntry.get(FTSEntry.entry_id == self.id)
         except FTSEntry.DoesNotExist:
@@ -154,8 +140,6 @@ def login():
     next_url = request.args.get('next') or request.form.get('next')
     if request.method == 'POST' and request.form.get('password'):
         password = request.form.get('password')
-        # TODO: If using a one-way hash, you would also hash the user-submitted
-        # password and do the comparison on the hashed versions.
         if password == app.config['ADMIN_PASSWORD']:
             session['logged_in'] = True
             session.permanent = True  # Use cookie to store session.
@@ -180,10 +164,6 @@ def index():
     else:
         query = Entry.public().order_by(Entry.timestamp.desc())
 
-    # The `object_list` helper will take a base query and then handle
-    # paginating the results if there are more than 20. For more info see
-    # the docs:
-    # http://docs.peewee-orm.com/en/latest/peewee/playhouse.html#object_list
     return object_list(
         'index.html',
         query,
