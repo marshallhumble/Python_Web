@@ -16,5 +16,5 @@ six==1.10.0
 tornado==4.2
 traitlets==4.0.0
 update-checker==0.11
-Werkzeug==0.11.2
+Werkzeug==3.0.6
 wheel==0.38.1
