@@ -10,7 +10,7 @@ pickleshare==0.5
 praw==3.3.0
 prawoauth2==0.3
 ptyprocess==0.5
-requests==2.8.1
+requests==2.32.4
 simplegeneric==0.8.1
 six==1.10.0
 tornado==4.2
